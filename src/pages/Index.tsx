@@ -1,21 +1,49 @@
 
-import BoxingGame from "../components/BoxingGame";
+import { useState } from "react";
+import Header from "../components/Header";
+import RestaurantList from "../components/RestaurantList";
+import FoodCategories from "../components/FoodCategories";
+import SearchBar from "../components/SearchBar";
+import Cart from "../components/Cart";
+import { CartProvider } from "../contexts/CartContext";
 
 const Index = () => {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-red-900 via-red-800 to-red-900">
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h1 className="text-6xl font-bold text-yellow-400 mb-4 text-shadow-lg">
-            BOXING CHAMPION
-          </h1>
-          <p className="text-xl text-white mb-8">
-            Fight your way to victory in this intense 2D boxing showdown!
-          </p>
-        </div>
-        <BoxingGame />
+    <CartProvider>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <main className="container mx-auto px-4 py-6">
+          {/* Hero Section */}
+          <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-8 mb-8 text-white">
+            <h1 className="text-4xl font-bold mb-4">
+              Delicious food, delivered fast
+            </h1>
+            <p className="text-xl mb-6 opacity-90">
+              Order from your favorite restaurants and get it delivered in minutes
+            </p>
+            <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+          </div>
+
+          {/* Food Categories */}
+          <FoodCategories 
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+          />
+
+          {/* Restaurant List */}
+          <RestaurantList 
+            selectedCategory={selectedCategory}
+            searchQuery={searchQuery}
+          />
+        </main>
+
+        {/* Cart */}
+        <Cart />
       </div>
-    </div>
+    </CartProvider>
   );
 };
 
