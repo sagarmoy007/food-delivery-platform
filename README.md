@@ -4,6 +4,8 @@
 
 **URL**: https://lovable.dev/projects/ac2428d8-c2a8-4fb3-9906-380d59383bb3
 
+**Follow and DM me**: ```sagarmoy123```
+
 ## How can I edit this code?
 
 There are several ways of editing your application.
