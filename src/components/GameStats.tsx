@@ -1,125 +1,50 @@
 
-import { GameState } from "./BoxingGame";
+import { Trophy, Heart, Zap } from "lucide-react";
 
-interface GameStatsProps {
-  gameState: GameState;
-}
-
-const GameStats = ({ gameState }: GameStatsProps) => {
-  const { fighter1, fighter2, round, timer } = gameState;
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-  };
-
-  const getHealthPercentage = (health: number, maxHealth: number) => {
-    return (health / maxHealth) * 100;
-  };
-
-  const getEnergyPercentage = (energy: number, maxEnergy: number) => {
-    return (energy / maxEnergy) * 100;
-  };
-
+const GameStats = () => {
   return (
-    <div className="bg-gray-800 p-4 text-white">
-      <div className="flex justify-between items-center mb-4">
+    <div className="bg-gray-800 rounded-lg p-6 text-white max-w-4xl mx-auto">
+      <div className="flex items-center gap-2 mb-4">
+        <Trophy className="w-6 h-6 text-yellow-400" />
+        <h2 className="text-2xl font-bold">Game Features</h2>
+      </div>
+      
+      <div className="grid md:grid-cols-3 gap-6">
         <div className="text-center">
-          <h3 className="text-xl font-bold text-red-400">{fighter1.name}</h3>
-          <div className="text-2xl font-bold">Score: {fighter1.score}</div>
+          <Heart className="w-12 h-12 text-red-400 mx-auto mb-2" />
+          <h3 className="text-lg font-semibold mb-2">Health System</h3>
+          <p className="text-gray-300 text-sm">
+            Dynamic health bars with bleeding effects when health drops below 30%
+          </p>
         </div>
         
         <div className="text-center">
-          <div className="text-3xl font-bold text-yellow-400">Round {round}</div>
-          <div className="text-xl">{formatTime(timer)}</div>
+          <Zap className="w-12 h-12 text-blue-400 mx-auto mb-2" />
+          <h3 className="text-lg font-semibold mb-2">Combat Mechanics</h3>
+          <p className="text-gray-300 text-sm">
+            Blocking reduces damage, dodging makes you temporarily invincible
+          </p>
         </div>
         
         <div className="text-center">
-          <h3 className="text-xl font-bold text-blue-400">{fighter2.name}</h3>
-          <div className="text-2xl font-bold">Score: {fighter2.score}</div>
+          <Trophy className="w-12 h-12 text-yellow-400 mx-auto mb-2" />
+          <h3 className="text-lg font-semibold mb-2">Special Moves</h3>
+          <p className="text-gray-300 text-sm">
+            Combo system with uppercuts, counter hooks, and flying punches
+          </p>
         </div>
       </div>
-
-      <div className="grid grid-cols-2 gap-8">
-        {/* Fighter 1 Stats */}
-        <div className="space-y-2">
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span>Health</span>
-              <span>{fighter1.health}/{fighter1.maxHealth}</span>
-            </div>
-            <div className="w-full bg-gray-700 rounded-full h-4">
-              <div
-                className="bg-red-500 h-4 rounded-full transition-all duration-300"
-                style={{ width: `${getHealthPercentage(fighter1.health, fighter1.maxHealth)}%` }}
-              />
-            </div>
-          </div>
-          
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span>Energy</span>
-              <span>{Math.floor(fighter1.energy)}/{fighter1.maxEnergy}</span>
-            </div>
-            <div className="w-full bg-gray-700 rounded-full h-3">
-              <div
-                className="bg-yellow-500 h-3 rounded-full transition-all duration-300"
-                style={{ width: `${getEnergyPercentage(fighter1.energy, fighter1.maxEnergy)}%` }}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Fighter 2 Stats */}
-        <div className="space-y-2">
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span>Health</span>
-              <span>{fighter2.health}/{fighter2.maxHealth}</span>
-            </div>
-            <div className="w-full bg-gray-700 rounded-full h-4">
-              <div
-                className="bg-red-500 h-4 rounded-full transition-all duration-300"
-                style={{ width: `${getHealthPercentage(fighter2.health, fighter2.maxHealth)}%` }}
-              />
-            </div>
-          </div>
-          
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span>Energy</span>
-              <span>{Math.floor(fighter2.energy)}/{fighter2.maxEnergy}</span>
-            </div>
-            <div className="w-full bg-gray-700 rounded-full h-3">
-              <div
-                className="bg-yellow-500 h-3 rounded-full transition-all duration-300"
-                style={{ width: `${getEnergyPercentage(fighter2.energy, fighter2.maxEnergy)}%` }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Status indicators */}
-      <div className="flex justify-between mt-4 text-sm">
-        <div className="flex space-x-4">
-          {fighter1.isBlocking && (
-            <span className="text-yellow-400 font-bold">🛡️ BLOCKING</span>
-          )}
-          {fighter1.isPunching && (
-            <span className="text-red-400 font-bold">👊 PUNCHING</span>
-          )}
-        </div>
-        
-        <div className="flex space-x-4">
-          {fighter2.isPunching && (
-            <span className="text-red-400 font-bold">👊 PUNCHING</span>
-          )}
-          {fighter2.isBlocking && (
-            <span className="text-yellow-400 font-bold">🛡️ BLOCKING</span>
-          )}
-        </div>
+      
+      <div className="mt-6 p-4 bg-gray-700 rounded-lg">
+        <h4 className="font-semibold mb-2">Game Rules</h4>
+        <ul className="text-sm space-y-1 text-gray-300">
+          <li>• Each player starts with 100 health points</li>
+          <li>• Light punches deal 10 damage, heavy punches deal 15 damage</li>
+          <li>• Blocking reduces incoming damage by 70%</li>
+          <li>• Special moves deal bonus damage (18-25 points)</li>
+          <li>• First player to reach 0 health gets knocked out</li>
+          <li>• Game resets automatically after knockout scene</li>
+        </ul>
       </div>
     </div>
   );
